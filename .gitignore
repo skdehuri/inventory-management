@@ -1,0 +1,22 @@
+## IDE ##
+.idea/workspace.xml
+.vscode/
+
+## Django/Python ##
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+*.py[cod]
+*.bak
+
+## Celery ##
+celerybeat-schedule
+
+## Log ##
+*.log
+
+## Uploads ##
+uploads/
+
+## Dependencies ##
+node_modules/
