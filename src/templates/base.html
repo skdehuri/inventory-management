@@ -4,6 +4,23 @@
   <meta charset="utf-8">
   <title>{% block title %}Inventory{% endblock %}</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+    table {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  </style>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top">
@@ -12,6 +29,7 @@
       <li><a class="navbar-brand" href="{% url 'home' %}">Inventory Management</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
+      <li><a class="navbar-link" href="{% url 'add_item' %}">Add Item</a></li>
       {% if user.is_authenticated %}
       <li><a href="{% url 'logout' %}">Logout</a></li>
       {% else %}
