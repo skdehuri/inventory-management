@@ -3,34 +3,44 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  {% if is_store_manager %}
-    <p>Store Manager Logged in</p>
-    <p><a href="{% url 'pending_approval' %}">Go to Pending Approval(s)</a></p>
-  {% else %}
-  <p>Assistant Logged in</p>
-  {% endif %}
-  <table>
-  <tr>
-    <th>Product Name</th>
-    <th>Vendor</th>
-    <th>Price</th>
-    <th>Batch Number</th>
-    <th>Batch Date</th>
-    <th>Action</th>
-  </tr>
-  {% for item in items %}
-    <tr>
-        <td><a href="{% url 'edit_item' item.id %}">{{item.name}}</a></td>
-        <td>{{item.vendor}}</td>
-        <td>{{item.price}}</td>
-        <td>{{item.batch_number}}</td>
-        <td>{{item.batch_date}}</td>
-        <td><button type="button" class="btn btn-xs btn-danger"><a style="color: #fff;text-decoration:none;" href="{% url 'delete_item' item.id %}">Delete</a></button></td>
-    </tr>
-  {% endfor %}
-</table>
-{% else %}
-  <p>Please Login to continue</p>
-{% endif %}
+    {% if user.is_authenticated %}
+        {% if is_store_manager %}
+            <p>Store Manager Logged in</p>
+            <p><a href="{% url 'pending_approval' %}">Go to Pending Approval(s)</a></p>
+        {% else %}
+            <p>Assistant Logged in</p>
+        {% endif %}
+    {% if items %}
+        <table class="grid">
+            <tr>
+                <th>Product Name</th>
+                <th>Vendor</th>
+                <th>Price</th>
+                <th>Batch Number</th>
+                <th>Batch Date</th>
+                <th>Action</th>
+            </tr>
+            {% for item in items %}
+            <tr>
+                <td><a href="{% url 'edit_item' item.id %}">{{item.name}}</a></td>
+                <td>{{item.vendor}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.batch_number}}</td>
+                <td>{{item.batch_date}}</td>
+                <td>
+                    {% if is_store_manager or item.status == 2 %}
+                    <button type="button" class="btn btn-xs btn-danger"><a style="color: #fff;text-decoration:none;" href="{% url 'delete_item' item.id %}">Delete</a></button>
+                    {% else %}
+                    <p>Pending for Approval</p>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No Items Available</p>
+    {% endif %}
+    {% else %}
+        <p>Please Login to continue</p>
+    {% endif %}
 {% endblock %}

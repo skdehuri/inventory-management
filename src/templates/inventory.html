@@ -4,25 +4,29 @@
 {% if item %}
 <form method="post" action="{% url 'edit_item' item.id %}">
     {% csrf_token %}
-    {{form.as_p}}
+    <table class="form">
+        {{form}}
+    </table>
     {% if not is_store_manager %}
-        {{approval_form.as_p}}
+    <table class="form">
+        {{approval_form}}
+    </table>
     {% endif %}
     {% if is_store_manager or item.status == 2 %}
-        <input type="submit" name="" value="save">
+        <input type="submit" class="btn btn-info" name="save" value="save">
     {% endif %}
-    {% if not is_store_manager or item.status == 1 %}
+    {% if not is_store_manager and item.status == 1 %}
         <p>Current item is pending for approval</p>
     {% endif %}
 </form>
 {% else %}
 <form method="post" action="{% url 'add_item' %}">
     {% csrf_token %}
-    {{form.as_p}}
+    {{form}}
     {% if not is_store_manager %}
         {{approval_form.as_p}}
     {% endif %}
-    <input type="submit" name="" value="save">
+    <input type="submit" class="btn btn-info btn-sm" name="save" value="save">
 </form>
 {% endif %}
 

@@ -60,7 +60,7 @@ def add_item(request):
 @login_required
 def edit_item(request, item_id):
     """
-    Function used to add item in the inventory
+    Function used to edit item in the inventory
     :param request: request received from web server
     :param item_id: current item id
     :return: renders home if success
@@ -115,7 +115,7 @@ def delete_item(request, item_id):
 @login_required
 def approve_item(request, item_id):
     """
-    Function used to delete item in the inventory
+    Function used to approve item in the inventory
     :param request: request received from web server
     :param item_id: current item id
     :return: renders home if success
@@ -140,6 +140,14 @@ def approve_item(request, item_id):
 
 @login_required
 def pending_approvals(request):
-    items = ApprovalRequests.objects.filter(status=ApprovalRequests.PENDING).select_related('inventory',
-                                                                                            'requested_user')
-    return render(request, 'pending-approvals.html', {'items': items})
+    """
+    Function to show pending approvals
+    :param request: request received from web server
+    :return: list of approval requests
+    """
+    try:
+        items = ApprovalRequests.objects.filter(status=ApprovalRequests.PENDING).select_related('inventory',
+                                                                                                'requested_user')
+        return render(request, 'pending-approvals.html', {'items': items})
+    except Exception as e:
+        return HttpResponse("Something went wrong")

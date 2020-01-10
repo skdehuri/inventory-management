@@ -1,47 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>{% block title %}Inventory{% endblock %}</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <style>
-    table {
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
+    <meta charset="utf-8">
+    <title>{% block title %}Inventory{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+    table.grid {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
     }
 
-    td, th {
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
+    table.grid td, table.grid th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
     }
 
-    tr:nth-child(even) {
-      background-color: #dddddd;
+    table.grid tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    table.form td, table.form th {
+        text-align: left;
+        padding: 5px;
     }
   </style>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top">
-  <div class="container">
-    <ul class="nav navbar-nav">
-      <li><a class="navbar-brand" href="{% url 'home' %}">Inventory Management</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a class="navbar-link" href="{% url 'add_item' %}">Add Item</a></li>
-      {% if user.is_authenticated %}
-      <li><a href="{% url 'logout' %}">Logout</a></li>
-      {% else %}
-      <li><a class="navbar-link" href="{% url 'login' %}">Login</a></li>
-      {% endif %}
-    </ul>
-  </div>
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li><a class="navbar-brand" href="{% url 'home' %}">Inventory Management</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a class="navbar-link" href="{% url 'add_item' %}">Add Item</a></li>
+            <li><a class="navbar-link" href="{% url 'home' %}">Show Item(s)</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a class="navbar-link" href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
 </nav>
 <div class="container">
-  {% block content %}
+    {% block content %}
 
-  {% endblock %}
+    {% endblock %}
 </div>
 </body>
 </html>

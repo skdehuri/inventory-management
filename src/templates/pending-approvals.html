@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<table>
-  <tr>
-    <th>Product Name</th>
-    <th>Requested By</th>
-    <th>reason</th>
-    <th>Action</th>
-</tr>
-{% for item in items %}
-    <tr>
-        <td><a href="{% url 'edit_item' item.id %}">{{item.inventory.name}}</a></td>
-        <td>{{item.requested_user}}</td>
-        <td>{{item.reason}}</td>
-        <td><button type="button" class="btn btn-xs btn-danger"><a style="color: #fff;text-decoration:none;" href="{% url 'approve_item' item.id %}">Approve</a></button></td>
-    </tr>
-{% endfor %}
-</table>
+    {% if items %}
+    <table class="grid">
+        <tr>
+            <th>Product Name</th>
+            <th>Requested By</th>
+            <th>Reason for change</th>
+            <th>Action</th>
+        </tr>
+        {% for item in items %}
+            <tr>
+                <td><a href="{% url 'edit_item' item.id %}">{{item.inventory.name}}</a></td>
+                <td>{{item.requested_user}}</td>
+                <td>{{item.reason}}</td>
+                <td><button type="button" class="btn btn-xs btn-danger"><a style="color: #fff;text-decoration:none;" href="{% url 'approve_item' item.id %}">Approve</a></button></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    No Items available for Approval
+{% endif %}
 {% endblock %}

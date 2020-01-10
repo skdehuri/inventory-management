@@ -5,11 +5,13 @@ from user.models import ApprovalRequests
 
 
 class InventoryForm(forms.ModelForm):
-    name = forms.CharField(widget=forms.TextInput(attrs={'required': True}))
-    vendor = forms.CharField()
-    price = forms.NumberInput()
-    batch_number = forms.NumberInput()
-    batch_date = forms.CharField(widget=forms.DateInput(format="%Y-%m-%d", attrs={'placeholder': 'YYYY-MM-DD'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'required': True, 'class': 'form-control'}))
+    vendor = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    price = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    batch_number = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    batch_date = forms.CharField(widget=forms.DateInput(format="%Y-%m-%d", attrs={'placeholder': 'YYYY-MM-DD',
+                                                                                  'class': 'form-control'}))
+    quantity = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Inventory
@@ -17,7 +19,7 @@ class InventoryForm(forms.ModelForm):
 
 
 class ApprovalReasonForm(forms.ModelForm):
-    reason = forms.Textarea(attrs={'required': True})
+    reason = forms.Textarea(attrs={'required': True, 'class': 'form-control'})
 
     class Meta:
         model = ApprovalRequests
